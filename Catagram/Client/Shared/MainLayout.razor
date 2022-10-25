@@ -1,0 +1,57 @@
+﻿@inherits LayoutComponentBase
+@inject INavigationService NavigationService
+@inject AuthStateProvider AuthStateProvider
+<div class="main">
+	<AuthorizeView>
+		<Authorized>
+			<nav class="navbar navbar-expand-lg bg-light">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#">
+						<img src="logo.png" alt="Logo" width="33" height="26" class="d-inline-block align-text-top">
+						Catagram
+					</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link" @onclick="NavigationService.ToMyPosts">My Posts</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" @onclick="NavigationService.ToCreatePost">Create Post</a>
+							</li>
+						</ul>
+						<span>@_login</span>
+						<button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>
+					</div>
+				</div>
+			</nav>
+			<div class="content px-4">
+				@Body
+			</div>
+		</Authorized>
+	</AuthorizeView>
+</div>
+@code
+{
+	[CascadingParameter]
+	Task<AuthenticationState> AuthenticationState { get; set; }
+
+	private string _login = string.Empty;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		if (!(await AuthenticationState).User.Identity.IsAuthenticated)
+		{
+			NavigationService.ToLogin();
+		}
+		_login = (await AuthenticationState).User.Identity.Name;
+	}
+
+	async Task LogoutClick()
+	{
+		await AuthStateProvider.Logout();
+		NavigationService.ToLogin();
+	}
+}

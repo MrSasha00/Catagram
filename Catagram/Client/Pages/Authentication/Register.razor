@@ -1,0 +1,72 @@
+﻿@page "/register"
+@using Microsoft.AspNetCore.Components
+@using Catagram.Shared.Model
+@layout AuthLayout
+@inject NavigationManager NavigationManager
+@inject AuthStateProvider AuthStateProvider
+<div style="margin-top: 15%;">
+	<div style="display: flex; align-items: center; justify-content: center">
+		<EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="registerRequest">
+			<DataAnnotationsValidator />
+			<h1>Register to Catagram</h1>
+			<div class="form-floating mb-3">
+				<InputText class="form-control"
+				           id="floatingInputLoginRegister"
+				           placeholder = "Login"
+				           @bind-Value="registerRequest.UserName"/>
+				<ValidationMessage For="@(() => registerRequest.UserName)"/>
+				<label for="floatingInputLoginRegister">Login</label>
+			</div>
+
+			<div class="form-floating mb-3">
+				<InputText type="password"
+				           id="floatingInputPasswordRegister"
+				           class="form-control"
+				           placeholder = "Password"
+				           @bind-Value="registerRequest.Password"/>
+				<ValidationMessage For="@(() => registerRequest.Password)"/>
+				<label for="floatingInputPasswordRegister">Password</label>
+			</div>
+
+			<div class="form-floating mb-3">
+				<InputText type="password"
+				           id="floatingInputPasswordConfirmation"
+				           class="form-control"
+				           placeholder = "Password confirm"
+				           @bind-Value="registerRequest.PasswordConfirm"/>
+				<ValidationMessage For="@(() => registerRequest.PasswordConfirm)"/>
+				<label for="floatingInputPasswordConfirmation">Password Confirm</label>
+			</div>
+
+			<div style="display: flex; justify-content: center">
+				<button class="btn btn-lg btn-primary" type="submit">Create acount</button>
+			</div>
+
+			<label class="text-danger">@error</label>
+			<NavLink href="login">
+				<h6 class="font-weight-normal text-center">Already have an account? Click here to login</h6>
+			</NavLink>
+		</EditForm>
+	</div>
+</div>
+
+
+@functions{
+
+	RegisterRequest registerRequest { get; set; } = new();
+	string error { get; set; }
+
+	async Task OnSubmit()
+	{
+		error = null;
+		try
+		{
+			await AuthStateProvider.Register(registerRequest);
+			NavigationManager.NavigateTo("");
+		}
+		catch (Exception ex)
+		{
+			error = ex.Message;
+		}
+	}
+}

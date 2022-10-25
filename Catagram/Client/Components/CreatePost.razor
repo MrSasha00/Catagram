@@ -1,0 +1,29 @@
+﻿<div class="create-post-container" style="border: solid #dee2e6;">
+<EditForm Model="@CreatePostDto" OnValidSubmit="@Post">
+	<DataAnnotationsValidator/>
+	<ValidationSummary/>
+
+	<div class="form-group">
+		<div style="height: 60%">
+			<img src="@_uri" style="width: 600px; min-height: 200px"/>
+		</div>
+		<div>
+			<div class="mb-3">
+				<InputFile class="form-control"
+				           type="file"
+				           id="formFile"
+				           OnChange="HandleSelection"/>
+			</div>
+		</div>
+		<div>
+			<InputTextArea class="form-control" @bind-Value="CreatePostDto.Description"/>
+		</div>
+	</div>
+	<div style="padding: 0 0 0 12px">
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<button type="submit" class="btn btn-outline-primary" @onclick="NavigationService.ToMyPosts">Publish</button>
+			<button type="button" class="btn btn-outline-secondary" @onclick="NavigationService.ToPosts">Cancel</button>
+		</div>
+	</div>
+</EditForm>
+</div>

@@ -1,0 +1,33 @@
+﻿<div class="container-md shadow p-3 mb-5 bg-body rounded" style="width: 50%">
+	<div style="height: 60%; padding: 0 0 4px 0">
+		<img src="@_uri" class="rounded mx-auto d-block" style="width: 100%"/>
+	</div>
+	<hr/>
+	<div style="max-width: 600px; padding: 0 0 4px 0">
+		<span class="badge bg-black" @onclick="() => NavigationService.ToPostsByLogin(CurrentPost.User.Login)">
+			@CurrentPost.User.Login:
+		</span>
+		@CurrentPost.Description
+	</div>
+	<div style="display: flex; justify-content: space-between">
+		<div class="fw-light">
+			@CurrentPost.CreatedDt
+		</div>
+		<div>
+		@if (IsEdit)
+		{
+			<button type="button"
+			        class="btn btn-outline-primary"
+			        @onclick="() => NavigationService.ToEditPost(CurrentPost.Id)">
+				Edit
+			</button>
+			<button type="button"
+			        class="btn btn-outline-danger"
+			        @onclick="() => DeletePost(CurrentPost.Id)">
+				Delete
+			</button>
+		}
+		</div>
+	</div>
+</div>
+
