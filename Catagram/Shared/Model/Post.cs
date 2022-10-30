@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Catagram.Shared.Model;
 
@@ -9,4 +10,7 @@ public class Post : BaseEntity
 	public DateTime CreatedDt { get; set; }
 	public int UserId { get; set; }
 	public User User { get; set; }
+	[JsonIgnore]
+	[IgnoreDataMember]
+	public List<Comment> Comments { get; set; } = new();
 }

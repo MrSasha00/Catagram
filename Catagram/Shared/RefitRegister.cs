@@ -12,7 +12,11 @@ public static class RefitRegister
 			.GetExecutingAssembly()
 			.GetTypes()
 			.Where(type => type.IsInterface)
-			.Where(type => type.GetMethods().Any(methodInfo => methodInfo.GetCustomAttribute<GetAttribute>() != null || methodInfo.GetCustomAttribute<PostAttribute>() != null))
+			.Where(type => type.GetMethods()
+				.Any(methodInfo => methodInfo.GetCustomAttribute<GetAttribute>() != null
+								   || methodInfo.GetCustomAttribute<PostAttribute>() != null
+								   || methodInfo.GetCustomAttribute<PutAttribute>() != null
+								   || methodInfo.GetCustomAttribute<DeleteAttribute>() != null))
 			.ToList()
 			.ForEach(type =>
 				services

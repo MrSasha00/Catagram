@@ -1,0 +1,12 @@
+﻿<div class="container-md shadow p-3 mb-2 bg-body rounded" style="width: 50%">
+	<div class="container">Комментарии:</div>
+	@foreach (var comment in _comments)
+	{
+		<Comment CommentValue="comment"></Comment>
+	}
+	<div class="container">
+		<input type="text" class="form-control" style="display: inline; width: 80%" @bind-value="newMessage"/>
+		<button class="btn btn-primary" @onclick="SendMessage">Отправить</button>
+	</div>
+</div>
+

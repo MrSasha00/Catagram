@@ -6,17 +6,20 @@
 }
 else
 {
-	<div class="d-flex justify-content-center">
-		<div class="spinner-border" role="status">
-			<span class="visually-hidden">Loading...</span>
+	@if (_posts != null && _posts.Count == 0)
+	{
+		<div class="d-flex justify-content-center">
+			<span class="alert-info">Публикаций пока что нет(</span>
 		</div>
-	</div>
-}
-@if (_posts != null && _posts.Count == 0)
-{
-	<div class="d-flex justify-content-center">
-		<span class="alert-info">Публикаций пока тчо нет(</span>
-	</div>
+	}
+	else
+	{
+		<div class="d-flex justify-content-center">
+			<div class="spinner-border" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
+	}
 }
 
 

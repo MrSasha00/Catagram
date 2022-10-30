@@ -9,4 +9,6 @@ public interface INavigationService
 	void ToPosts();
 	void ToMyPosts();
 	void ToEditPost(int editPostId);
+	Uri GetPostHubUri();
+	void ToPostById(int postId);
 }

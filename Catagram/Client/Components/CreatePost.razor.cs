@@ -50,7 +50,7 @@ public partial class CreatePost : ComponentBase
 		if (EditContext != null && EditContext.Validate())
 		{
 			await PostController.Create(CreatePostDto);
-			NavigationService.ToRoot();
+			NavigationService.ToPosts();
 		}
 	}
 }

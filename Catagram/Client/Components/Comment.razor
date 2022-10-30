@@ -1,0 +1,11 @@
+﻿<div class="container-md shadow p-3 mb-2 bg-body rounded">
+	<div>
+		<span class="badge bg-info" @onclick="() => NavigationService.ToPostsByLogin(CommentValue.UserName)">
+			@CommentValue.UserName
+		</span> 
+		<span class="badge bg-info">
+			@CommentValue.CreatedDt
+		</span>
+	</div>
+	<div>@CommentValue.Content</div>
+</div>

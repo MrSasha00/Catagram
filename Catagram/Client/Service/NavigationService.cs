@@ -16,8 +16,8 @@ public class NavigationService : INavigationService
 	public void ToPosts() => _navigationManager.NavigateTo("posts");
 	public void ToMyPosts() => _navigationManager.NavigateTo("myPosts");
 	public void ToEditPost(int editPostId) => _navigationManager.NavigateTo($"posts/{editPostId}/edit");
+	public Uri GetPostHubUri() => _navigationManager.ToAbsoluteUri("/postHub");
+	public void ToPostById(int postId) => _navigationManager.NavigateTo($"post/{postId}");
 	public void ToRoot() => _navigationManager.NavigateTo("");
 	public void ToCreatePost() => _navigationManager.NavigateTo("createPost");
-	
-	
 }

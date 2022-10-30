@@ -2,6 +2,7 @@
 using Catagram.Shared.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 using Refit;
 
@@ -28,6 +29,10 @@ public partial class Post
 	private IJSRuntime JsRuntime { get; set; } = default!;
 
 	private string _uri = string.Empty;
+
+	private HubConnection? _hubConnection;
+	private string[] messages = Array.Empty<string>();
+	private string message = string.Empty;
 
 	protected override async Task OnInitializedAsync()
 	{

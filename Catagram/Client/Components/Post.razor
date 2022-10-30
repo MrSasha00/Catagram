@@ -1,17 +1,18 @@
-﻿<div class="container-md shadow p-3 mb-5 bg-body rounded" style="width: 50%">
-	<div style="height: 60%; padding: 0 0 4px 0">
+﻿<div class="container-md shadow p-3 mb-2 bg-body rounded" style="width: 50%">
+	<div style="height: 60%; padding: 0 0 4px 0"
+	     @onclick="() => NavigationService.ToPostById(CurrentPost.Id)">
 		<img src="@_uri" class="rounded mx-auto d-block" style="width: 100%"/>
 	</div>
 	<hr/>
 	<div style="max-width: 600px; padding: 0 0 4px 0">
-		<span class="badge bg-black" @onclick="() => NavigationService.ToPostsByLogin(CurrentPost.User.Login)">
+		<span class="badge bg-success" @onclick="() => NavigationService.ToPostsByLogin(CurrentPost.User.Login)">
 			@CurrentPost.User.Login:
 		</span>
 		@CurrentPost.Description
 	</div>
 	<div style="display: flex; justify-content: space-between">
 		<div class="fw-light">
-			@CurrentPost.CreatedDt
+			@CurrentPost.CreatedDt.ToLocalTime()
 		</div>
 		<div>
 		@if (IsEdit)

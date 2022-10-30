@@ -1,8 +1,10 @@
 using Catagram.Server;
 using Catagram.Server.Data;
+using Catagram.Server.Hubs;
 using Catagram.Server.Models;
 using Catagram.Server.Models.Service;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +37,11 @@ builder.Services.AddScoped<IFtpService>(s => new FtpService(
 
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
+builder.Services.AddResponseCompression(option =>
+	option.MimeTypes = ResponseCompressionDefaults
+		.MimeTypes
+		.Concat(new[] {"application/octet-stream"}));
 
 var app = builder.Build();
 
@@ -61,6 +68,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.MapHub<PostHub>("/postHub");
 app.MapFallbackToFile("index.html");
 
 app.Run();

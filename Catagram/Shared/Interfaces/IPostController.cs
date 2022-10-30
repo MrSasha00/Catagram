@@ -20,9 +20,9 @@ public interface IPostController
 	[Get("/Post/GetPostById")]
 	Task<Post> GetPostById(int postId);
 
-	[Post("/Post/Update")]
+	[Put("/Post/Update")]
 	Task Update(Post updatePost);
 
-	[Post("/Post/Delete")]
+	[Delete("/Post/Delete")]
 	Task Delete(int postId);
 }
